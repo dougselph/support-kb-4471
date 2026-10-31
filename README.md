@@ -12,9 +12,9 @@ problems**, not one. The queued parser fix only addresses the first.
 
 | # | Problem | Reports | Root cause | Fix |
 |---|---------|--------:|-----------|-----|
-| 1 | Parser reads dates month-first | **374** | shared `sched-prod` parser reads stored dates as `MM/DD`; day-first tenants get day↔month swapped | the queued parser fix |
-| 2 | booking-v3 prints the wrong date hint | **33** | the booking-v3 form prints `MM/DD/YYYY`; day-first staff follow it and the form stores it day-first, swapping at input | fix the form's date hint |
-| 3 | One-day / time-zone shift | **5** | dates land one day off (DST / UTC offset / cross-zone), not swapped | a day-boundary / time-zone fix |
+| 1 | [Parser reads dates month-first](../../issues/1) | **374** | shared `sched-prod` parser reads stored dates as `MM/DD`; day-first tenants get day↔month swapped | the queued parser fix |
+| 2 | [booking-v3 prints the wrong date hint](../../issues/2) | **33** | the booking-v3 form prints `MM/DD/YYYY`; day-first staff follow it and the form stores it day-first, swapping at input | fix the form's date hint |
+| 3 | [One-day / time-zone shift](../../issues/3) | **5** | dates land one day off (DST / UTC offset / cross-zone), not swapped | a day-boundary / time-zone fix |
 
 374 + 33 + 5 = **412**. Each is filed as an issue in this repo (see Issues).
 

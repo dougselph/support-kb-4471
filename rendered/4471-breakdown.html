@@ -97,10 +97,10 @@ They are two separate problems, with two separate fixes.</p>
 <h2>Problem 1 — the shared parser reads dates month first</h2>
 <p>The <code>sched-prod</code> parser reads every stored date as <code>MM/DD</code>. A day-first tenant's <code>07/04</code> (7 April)
 comes back as 4 July: day and month trade places. This is the known bug, and it is the bulk of the
-ticket. It reaches the desk through every channel and every tenant, because every tenant on file
+ticket — <strong>374 reports</strong>, the day/month swaps in the <code>parser</code> group. It reaches the desk through every channel and every tenant, because every tenant on file
 writes the day first. Fix the parser and these stop.</p>
 <aside class="warn">This is the only problem the queued fix addresses. Problem 2 survives it.</aside>
-<p>Five of the <code>parser</code> reports (<code>desk-notes.json</code> &rarr; <code>oneDayMove</code>, footnoted by the table above) describe a date that is <strong>one day off</strong>, not swapped &mdash; <em>"only June"</em> (a DST boundary), <em>"Lisbon got Tuesday, Toronto got Monday, same meeting"</em> (a time zone), <em>"the invite arrived before I made the booking"</em> (a UTC offset). The desk files them under <code>parser</code> by tenant. Watch them as a possible day-boundary bug, but they are not a cause of their own.</p>
+<p>The <code>parser</code> group is 379, but five of those (<code>desk-notes.json</code> &rarr; <code>oneDayMove</code>, footnoted by the table above) describe a date that is <strong>one day off</strong>, not swapped &mdash; <em>"only June"</em> (a DST boundary), <em>"Lisbon got Tuesday, Toronto got Monday, same meeting"</em> (a time zone), <em>"the invite arrived before I made the booking"</em> (a UTC offset). They are not swaps and not a cause of their own, so they are left out of ticket 1&#39;s count &mdash; leaving 374 swaps. Watch them as a possible day-boundary bug.</p>
 
 <h2>Problem 2 — booking-v3 prints the wrong date hint</h2>
 <p>Under its date field, the <strong>booking-v3</strong> form prints <code>MM/DD/YYYY</code>. A day-first tenant's staff follow
@@ -186,11 +186,11 @@ stop the queue, because the second of its two problems was never worked.</p>
 <table>
   <thead><tr><th>ticket</th><th>problem</th><th>reports</th></tr></thead>
   <tbody>
-    <tr><td>1</td><td>parser reads dates month first</td><td>379</td></tr>
+    <tr><td>1</td><td>parser reads dates month first</td><td>374</td></tr>
     <tr><td>2</td><td>booking-v3 prints the wrong date hint</td><td>33</td></tr>
   </tbody>
 </table>
-<p>379 + 33 = 412. The tickets are filed as issues in this repo.</p>
+<p>374 + 33 = 407 reports across the two problems; the remaining 5 are the one-day footnote above, 412 in all. The tickets are filed as issues in this repo.</p>
 
 <p class="stamp">desk ref <b>DR-7J3R-5VNJ</b></p>
   </main>

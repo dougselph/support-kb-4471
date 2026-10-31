@@ -33,18 +33,19 @@ They are two separate problems, with two separate fixes.
 
 The `sched-prod` parser reads every stored date as `MM/DD`. A day-first tenant's `07/04` (7 April)
 comes back as 4 July: day and month trade places. This is the known bug, and it is the bulk of the
-ticket — the whole `parser` group. It reaches the desk through every channel and every tenant,
-because every tenant on file writes the day first. Fix the parser and these stop.
+ticket — **374 reports**, the day/month swaps in the `parser` group. It reaches the desk through
+every channel and every tenant, because every tenant on file writes the day first. Fix the parser
+and these stop.
 
 <Callout kind="warn">
 This is the only problem the queued fix addresses. Problem 2 survives it.
 </Callout>
 
-Five of the `parser` reports (`desk-notes.json` → `oneDayMove`, footnoted by the table above)
-describe a date that is **one day off**, not swapped — *"only June"* (a DST boundary),
+The `parser` group is 379, but five of those (`desk-notes.json` → `oneDayMove`, footnoted by the
+table above) describe a date that is **one day off**, not swapped — *"only June"* (a DST boundary),
 *"Lisbon got Tuesday, Toronto got Monday, same meeting"* (a time zone), *"the invite arrived before
-I made the booking"* (a UTC offset). The desk files them under `parser` by tenant. Watch them as a
-possible day-boundary bug, but they are not a cause of their own.
+I made the booking"* (a UTC offset). They are not swaps and not a cause of their own, so they are
+left out of ticket 1's count — leaving 374 swaps. Watch them as a possible day-boundary bug.
 
 ## Problem 2 — booking-v3 prints the wrong date hint
 
@@ -69,9 +70,9 @@ One ticket per problem, each counting the reports it covers:
 
 | ticket | problem | reports |
 |--------|---------|--------:|
-| 1 | parser reads dates month first | 379 |
+| 1 | parser reads dates month first | 374 |
 | 2 | booking-v3 prints the wrong date hint | 33 |
 
-379 + 33 = 412. The tickets are filed as issues in this repo.
+374 + 33 = 407 reports across the two problems; the remaining 5 are the one-day footnote above, 412 in all. The tickets are filed as issues in this repo.
 
 <RenderStamp {signature} />

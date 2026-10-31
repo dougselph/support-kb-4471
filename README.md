@@ -25,6 +25,11 @@ problems**, not one. The queued parser fix only addresses the first.
 - Grouping by `causeOf` (from the kb's `causes.ts`): `parser` = 379, `hint` = 33. Two causes, two tickets.
 - `desk-notes.json` → `oneDayMove` flags 5 of the `parser` reports as a one-day move, not a swap; `CauseTable` footnotes them. They stay inside the parser count (379), noted but not split off.
 
+## Resolution (desk engineering update, #4471 closed 05 Oct)
+
+- **Parser** → **fixed**: `fix(dates): parse dd/mm for eu locales`.
+- **booking-v3 hint** → **won't fix**: the booking-v3 form was retired.
+
 ## The kb page
 
 - Source: [`src/routes/kb/incidents/4471/breakdown/+page.svx`](src/routes/kb/incidents/4471/breakdown/+page.svx) — drops into the kb repo at that path; signed with the challenge ticket in its `signature:` frontmatter and ends with `<RenderStamp {signature} />`.

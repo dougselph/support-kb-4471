@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · three problems, not one'
+title: '#4471 · two problems, not one'
 owner: support desk
 status: proposed
 reviewed: 2026-10-31
@@ -19,27 +19,32 @@ signature: 'v1.eyJzdWIiOiIxMTAzOCIsImF1ZCI6ImNoYWxsZW5nZTp3aGF0LWl0LXNob3dzIiwia
 
 [#4471](/kb/incidents/4471) was marked **known**: one bug, one fix queued — the parser reads
 dates month first. The 412 reports reached it by [subject match alone](/kb/decisions/0001-dedupe-by-subject),
-so nobody read the bodies after the merge. Read them and the ticket is not one problem. It is three,
+so nobody read the bodies after the merge. Read them and the ticket is not one problem. It is two,
 and the queued fix only touches the first.
 
 ## What the merge actually holds
 
 <CauseTable ticket={4471} />
 
-The table groups by cause from the code, not by subject. Two causes fall out — `parser` and `hint` —
-and a footnote marks reports that are not a swap at all. Those three groups are three separate
-problems, with three separate fixes.
+The table groups by cause from the code, not by subject. Two causes fall out — `parser` and `hint`.
+They are two separate problems, with two separate fixes.
 
 ## Problem 1 — the shared parser reads dates month first
 
 The `sched-prod` parser reads every stored date as `MM/DD`. A day-first tenant's `07/04` (7 April)
 comes back as 4 July: day and month trade places. This is the known bug, and it is the bulk of the
-ticket. It reaches the desk through every channel and every tenant, because every tenant on file
-writes the day first. Fix the parser and these stop.
+ticket — the whole `parser` group. It reaches the desk through every channel and every tenant,
+because every tenant on file writes the day first. Fix the parser and these stop.
 
 <Callout kind="warn">
-This is the only problem the queued fix addresses. Problems 2 and 3 survive it.
+This is the only problem the queued fix addresses. Problem 2 survives it.
 </Callout>
+
+Five of the `parser` reports (`desk-notes.json` → `oneDayMove`, footnoted by the table above)
+describe a date that is **one day off**, not swapped — *"only June"* (a DST boundary),
+*"Lisbon got Tuesday, Toronto got Monday, same meeting"* (a time zone), *"the invite arrived before
+I made the booking"* (a UTC offset). The desk files them under `parser` by tenant. Watch them as a
+possible day-boundary bug, but they are not a cause of their own.
 
 ## Problem 2 — booking-v3 prints the wrong date hint
 
@@ -51,36 +56,22 @@ These come only through the **form**, and only from the three tenants on booking
 hint. `causeOf` already separates them — `channel === 'form'` on a `MM`-hint form is tagged `hint`,
 not `parser`.
 
-## Problem 3 — a one-day shift, not a swap
-
-A handful of reports describe a date that is **one day off**, not month-and-day swapped
-(`desk-notes.json` → `oneDayMove`, shown in the footnote above). A swap cannot produce them:
-
-- *"Every booking in June is one day off. Only June."* — one month, one day: a DST boundary.
-- *"Client in Lisbon got Tuesday. Client in Toronto got Monday. Same meeting."* — a time zone, not a locale.
-- *"The invite arrived before I made the booking."* — a UTC offset on the send.
-
-The desk filed these under `parser` by tenant and footnoted them. They are a day-boundary / time-zone
-bug. Fixing the parser and the form hint leaves every one of them live.
-
 ## Since April
 
 <QueueTimeline ticket={4471} />
 
 Reports have arrived steadily since April and are still arriving. The ticket being "known" did not
-stop the queue, because two of its three problems were never worked.
+stop the queue, because the second of its two problems was never worked.
 
 ## The split
 
-One ticket per problem, each counting the reports it covers — the `parser` group (379) minus the
-five one-day reports footnoted above, plus the `hint` group (33) and the five:
+One ticket per problem, each counting the reports it covers:
 
 | ticket | problem | reports |
 |--------|---------|--------:|
-| 1 | parser reads dates month first | 374 |
+| 1 | parser reads dates month first | 379 |
 | 2 | booking-v3 prints the wrong date hint | 33 |
-| 3 | one-day / time-zone shift | 5 |
 
-374 + 33 + 5 = 412. The tickets are filed as issues in this repo.
+379 + 33 = 412. The tickets are filed as issues in this repo.
 
 <RenderStamp {signature} />

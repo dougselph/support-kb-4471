@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>#4471 · three problems, not one · support kb</title>
+<title>#4471 · two problems, not one · support kb</title>
 <style>
   :root {
     --bg:#fbfaf7;--fg:#1d1d1b;--muted:#6b6a66;--line:#e3e0d8;
@@ -52,7 +52,7 @@
 <div class="kb">
   <header>
     <a class="crumb" href="/kb">support desk · kb</a>
-    <h1>#4471 · three problems, not one</h1>
+    <h1>#4471 · two problems, not one</h1>
     <p class="meta">
       <span>owner <b>support desk</b></span>
       <span class="status proposed">proposed</span>
@@ -63,7 +63,7 @@
 <p>
   <a href="/kb/incidents/4471">#4471</a> was marked <strong>known</strong>: one bug, one fix queued — the parser reads
   dates month first. The 412 reports reached it by <a href="/kb/decisions/0001-dedupe-by-subject">subject match alone</a>,
-  so nobody read the bodies after the merge. Read them and the ticket is not one problem. It is three,
+  so nobody read the bodies after the merge. Read them and the ticket is not one problem. It is two,
   and the queued fix only touches the first.
 </p>
 
@@ -92,15 +92,15 @@
 </table>
 <p class="note">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
 <p>The table groups by cause from the code, not by subject. Two causes fall out — <code>parser</code> and <code>hint</code> —
-and a footnote marks reports that are not a swap at all. Those three groups are three separate
-problems, with three separate fixes.</p>
+They are two separate problems, with two separate fixes.</p>
 
 <h2>Problem 1 — the shared parser reads dates month first</h2>
 <p>The <code>sched-prod</code> parser reads every stored date as <code>MM/DD</code>. A day-first tenant's <code>07/04</code> (7 April)
 comes back as 4 July: day and month trade places. This is the known bug, and it is the bulk of the
 ticket. It reaches the desk through every channel and every tenant, because every tenant on file
 writes the day first. Fix the parser and these stop.</p>
-<aside class="warn">This is the only problem the queued fix addresses. Problems 2 and 3 survive it.</aside>
+<aside class="warn">This is the only problem the queued fix addresses. Problem 2 survives it.</aside>
+<p>Five of the <code>parser</code> reports (<code>desk-notes.json</code> &rarr; <code>oneDayMove</code>, footnoted by the table above) describe a date that is <strong>one day off</strong>, not swapped &mdash; <em>"only June"</em> (a DST boundary), <em>"Lisbon got Tuesday, Toronto got Monday, same meeting"</em> (a time zone), <em>"the invite arrived before I made the booking"</em> (a UTC offset). The desk files them under <code>parser</code> by tenant. Watch them as a possible day-boundary bug, but they are not a cause of their own.</p>
 
 <h2>Problem 2 — booking-v3 prints the wrong date hint</h2>
 <p>Under its date field, the <strong>booking-v3</strong> form prints <code>MM/DD/YYYY</code>. A day-first tenant's staff follow
@@ -110,17 +110,6 @@ These come only through the <strong>form</strong>, and only from the three tenan
 (alder.physio, copper.studio, pale.harbour). The parser fix does nothing here: the fix is the form's
 hint. <code>causeOf</code> already separates them — <code>channel === 'form'</code> on a <code>MM</code>-hint form is tagged <code>hint</code>,
 not <code>parser</code>.</p>
-
-<h2>Problem 3 — a one-day shift, not a swap</h2>
-<p>A handful of reports describe a date that is <strong>one day off</strong>, not month-and-day swapped
-(<code>desk-notes.json</code> → <code>oneDayMove</code>, shown in the footnote above). A swap cannot produce them:</p>
-<ul>
-  <li><em>"Every booking in June is one day off. Only June."</em> — one month, one day: a DST boundary.</li>
-  <li><em>"Client in Lisbon got Tuesday. Client in Toronto got Monday. Same meeting."</em> — a time zone, not a locale.</li>
-  <li><em>"The invite arrived before I made the booking."</em> — a UTC offset on the send.</li>
-</ul>
-<p>The desk filed these under <code>parser</code> by tenant and footnoted them. They are a day-boundary / time-zone
-bug. Fixing the parser and the form hint leaves every one of them live.</p>
 
 <h2>Since April</h2>
 <figure>
@@ -190,20 +179,18 @@ bug. Fixing the parser and the form hint leaves every one of them live.</p>
   <figcaption><span class="key in"></span> received · <span class="key merged"></span> merged into #4471 · per week</figcaption>
 </figure>
 <p>Reports have arrived steadily since April and are still arriving. The ticket being "known" did not
-stop the queue, because two of its three problems were never worked.</p>
+stop the queue, because the second of its two problems was never worked.</p>
 
 <h2>The split</h2>
-<p>One ticket per problem, each counting the reports it covers — the <code>parser</code> group (379) minus the
-five one-day reports footnoted above, plus the <code>hint</code> group (33) and the five:</p>
+<p>One ticket per problem, each counting the reports it covers:</p>
 <table>
   <thead><tr><th>ticket</th><th>problem</th><th>reports</th></tr></thead>
   <tbody>
-    <tr><td>1</td><td>parser reads dates month first</td><td>374</td></tr>
+    <tr><td>1</td><td>parser reads dates month first</td><td>379</td></tr>
     <tr><td>2</td><td>booking-v3 prints the wrong date hint</td><td>33</td></tr>
-    <tr><td>3</td><td>one-day / time-zone shift</td><td>5</td></tr>
   </tbody>
 </table>
-<p>374 + 33 + 5 = 412. The tickets are filed as issues in this repo.</p>
+<p>379 + 33 = 412. The tickets are filed as issues in this repo.</p>
 
 <p class="stamp">desk ref <b>DR-7J3R-5VNJ</b></p>
   </main>

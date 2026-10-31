@@ -1,10 +1,10 @@
 ---
 layout: runbook
 title: '#4471 · three problems, not one'
-owner: Doug Selph
+owner: support desk
 status: proposed
 reviewed: 2026-10-31
-signature: Doug Selph
+signature: 'v1.eyJzdWIiOiIxMTAzOCIsImF1ZCI6ImNoYWxsZW5nZTp3aGF0LWl0LXNob3dzIiwiaWF0IjoxNzkzNDcwOTM1LCJleHAiOjE3OTM1NTczMzV9.IlmNV0elUu5Rn4C2pqtK_i1SitR99SB5ZCm6plLWxa8'
 ---
 
 <script>
@@ -12,8 +12,9 @@ signature: Doug Selph
   import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
   import Callout from '#lib/kb/Callout.svelte';
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
-  export let data;
-  const { signature } = data?.metadata ?? { signature: 'Doug Selph' };
+  // The signature is the Challenge ticket, carried exactly as issued (see kb README).
+  const signature =
+    'v1.eyJzdWIiOiIxMTAzOCIsImF1ZCI6ImNoYWxsZW5nZTp3aGF0LWl0LXNob3dzIiwiaWF0IjoxNzkzNDcwOTM1LCJleHAiOjE3OTM1NTczMzV9.IlmNV0elUu5Rn4C2pqtK_i1SitR99SB5ZCm6plLWxa8';
 </script>
 
 [#4471](/kb/incidents/4471) was marked **known**: one bug, one fix queued — the parser reads

@@ -26,5 +26,5 @@ problems**, not one. The queued parser fix only addresses the first.
 
 ## The kb page
 
-- Source: [`src/routes/kb/incidents/4471/breakdown/+page.svx`](src/routes/kb/incidents/4471/breakdown/+page.svx) — drops into the kb repo at that path; signed (`signature: Doug Selph`, ends with `<RenderStamp />`).
-- As the desk will see it (rendered): [`rendered/4471-breakdown.html`](rendered/4471-breakdown.html) — desk ref **DR-DCZC-GQ20**.
+- Source: [`src/routes/kb/incidents/4471/breakdown/+page.svx`](src/routes/kb/incidents/4471/breakdown/+page.svx) — drops into the kb repo at that path; signed with the challenge ticket in its `signature:` frontmatter and ends with `<RenderStamp {signature} />`.
+- As the desk will see it (rendered): [`rendered/4471-breakdown.html`](rendered/4471-breakdown.html) — desk ref **DR-7J3R-5VNJ**.
